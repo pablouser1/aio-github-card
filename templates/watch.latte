@@ -1,17 +1,14 @@
 {contentType xml}
-<svg id="svg" width="320" height="165" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<svg id="svg" width="320" height="100" version="1.1" xmlns="http://www.w3.org/2000/svg">
 	<title>{$username} watching info</title>
 	<style>
 	{getThemeCSS($theme)|noescape}
 	</style>
 	<rect class="background" width="100%" height="100%" />
-	<!-- LOGO -->
-	{do $logo = isDarkTheme($theme) ? 'trakt-wide-red-white.svg' : 'trakt-wide-red-black.svg'}
-	<image y="10" width="100%" height="50" href="{assets($logo, 'svg')}" />
-	<text class="header" x="10" y="90">{$username} {$isWatching ? 'is watching' : 'watched'}</text>
+	<text class="header" x="10" y="30">{$username} {$isWatching ? 'is watching' : 'watched'}</text>
 	{if $data->type === 'episode'}
 	<!-- Episode with show -->
-	<g transform="translate(10, 120)">
+	<g transform="translate(10, 50)">
 		<text class="title">{$data->show->title} ({$data->show->year})</text>
 		<g transform="translate(0, 20)">
 			<text class="text">Episode {$data->episode->number} / {$data->episode->title}</text>
@@ -20,7 +17,7 @@
 	</g>
 	{else}
 	<!-- Movie -->
-	<g transform="translate(10, 120)">
+	<g transform="translate(10, 50)">
 		<text class="title">{$data->movie->title} ({$data->movie->year})</text>
 	</g>
 	{/if}

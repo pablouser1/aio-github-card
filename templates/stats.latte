@@ -1,24 +1,21 @@
 {contentType xml}
-<svg id="svg" width="320" height="235" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<svg id="svg" width="300" height="155" version="1.1" xmlns="http://www.w3.org/2000/svg">
 	<title>{$username} stats</title>
 	<style>
 	{getThemeCSS($theme)|noescape}
 	</style>
 	<rect class="background" width="100%" height="100%" />
-	<!-- LOGO -->
-	{do $logo = isDarkTheme($theme) ? 'trakt-wide-red-white.svg' : 'trakt-wide-red-black.svg'}
-	<image y="10" width="100%" height="50" href="{assets($logo, 'svg')}" />
-	<text class="header" x="10" y="90">{$username}'s stats</text>
-	<g transform="translate(10, 120)">
+	<text class="header" x="10" y="30">{$username}'s stats</text>
+	<g transform="translate(10, 50)">
 		<text class="title">Movies:</text>
 		<text class="text" x="170">{$data->movies->watched} Watched</text>
 		<text class="text" x="170" y="15">{toHours($data->movies->minutes)} hours total</text>
 	</g>
-	<g transform="translate(10, 165)">
+	<g transform="translate(10, 95)">
 		<text class="title">Shows:</text>
 		<text class="text" x="170">{$data->shows->watched} Watched</text>
 	</g>
-	<g transform="translate(10, 200)">
+	<g transform="translate(10, 130)">
 		<text class="title">Episodes:</text>
 		<text class="text" x="170">{$data->episodes->watched} Watched</text>
 		<text class="text" x="170" y="15">{toHours($data->episodes->minutes)} hours total</text>

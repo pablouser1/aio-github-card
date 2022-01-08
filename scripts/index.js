@@ -13,7 +13,7 @@ const setData = e => {
   const params = {username, mode, theme}
   const url = new URL(API_URL, document.baseURI)
   url.search = new URLSearchParams(params)
-  svg.data = url
+  svg.src = url
 
   const markdown_text = markdown_template.replace('URL_HERE', url.toString())
   textarea.value = markdown_text
