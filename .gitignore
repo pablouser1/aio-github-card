@@ -1,0 +1,5 @@
+/.env
+/vendor
+/.vscode
+/cache/templates/*
+!/cache/templates/.gitkeep

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Trakt Github Card</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+	<script n:syntax="double">
+		const API_URL = {{path('api')}}
+	</script>
+</head>
+<body>
+	<section class="hero is-primary">
+		<div class="hero-body">
+			<div class="container">
+				<p class="title">Trakt Github Card</p>
+				<p class="subtitle">Create cards with info from your Trakt.tv account</p>
+			</div>
+		</div>
+	</section>
+	<section class="section">
+		<p class="title">Options</p>
+		<form id="settings_form">
+			<div class="field is-grouped">
+				<div class="control">
+					<label class="label">Themes</label>
+					<div class="select">
+						<select name="theme" value="default">
+							{foreach $themes as $theme}
+							<option value="{$theme}">{$theme|firstUpper}</option>
+							{/foreach}
+						</select>
+					</div>
+				</div>
+				<div class="control">
+					<label class="label">Modes</label>
+					<div class="select">
+						<select name="mode" value="default">
+							{foreach $modes as $mode}
+							<option value="{$mode}">{$mode|firstUpper}</option>
+							{/foreach}
+						</select>
+					</div>
+				</div>
+				<div class="control">
+					<label class="label">Username</label>
+					<input name="username" class="input" type="text" />
+				</div>
+			</div>
+			<div class="field">
+				<div class="control">
+					<button class="button is-primary" type="submit">Apply</button>
+				</div>
+			</div>
+		</form>
+		<hr />
+		<object id="svg"></object>
+		<div class="field">
+			<div class="control">
+				<textarea id="textarea" class="textarea" readonly></textarea>
+			</div>
+		</div>
+	</section>
+	<script src="{assets('index.js', 'scripts')}"></script>
+</body>
+</html>

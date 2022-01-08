@@ -1,0 +1,16 @@
+{
+    "name": "pablouser1/trakt-github-card",
+    "description": "Currently watching card for Github README",
+    "type": "project",
+    "license": "AGPL-3.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Helpers\\": "helpers/"
+        }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.4",
+        "steampixel/simple-php-router": "^0.7.0",
+        "latte/latte": "^2.10"
+    }
+}
