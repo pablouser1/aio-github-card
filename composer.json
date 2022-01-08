@@ -9,6 +9,8 @@
         }
     },
     "require": {
+        "ext-mbstring": "*",
+        "ext-curl": "*",
         "vlucas/phpdotenv": "^5.4",
         "steampixel/simple-php-router": "^0.7.0",
         "latte/latte": "^2.10"
