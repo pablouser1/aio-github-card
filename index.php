@@ -34,6 +34,7 @@ Route::add('/api', function () {
     $latte = Misc::latte();
     $api = new Api($username);
     header('Content-Type: image/svg+xml');
+    header('Cache-Control: s-maxage=1');
     $data = [
         'username' => $username,
         'theme' => $theme
