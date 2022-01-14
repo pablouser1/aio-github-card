@@ -34,15 +34,15 @@ Route::add('/api', function () {
     $latte = Misc::latte();
     $api = new Api($username);
     header('Content-Type: image/svg+xml');
-    header('Cache-Control: s-maxage=1');
-    $data = [
+    header('Cache-Control: s-maxage=60');
+    $params = [
         'username' => $username,
         'theme' => $theme
     ];
     switch ($mode) {
         case 'stats':
             $stats = $api->stats();
-            $data['data'] = $stats;
+            $params['data'] = $stats;
             break;
         case 'watch':
             $watching = $api->watching();
@@ -50,18 +50,21 @@ Route::add('/api', function () {
                 // If user is not watching, get latest stuff he saw
                 $watched = $api->watched();
                 if ($watched) {
-                    $data['data'] = $watched[0];
-                    $data['isWatching'] = false;
+                    $num_elements = count($watched);
+                    $chosen = rand(0, $num_elements - 1);
+                    $element = $watched[$chosen];
+                    $params['data'] = $element;
+                    $params['isWatching'] = false;
                 }
             } else {
-                $data['data'] = $watching;
-                $data['isWatching'] = true;
+                $params['data'] = $watching;
+                $params['isWatching'] = true;
             }
             break;
         default:
             die('Invalid mode!');
     }
-    $latte->render(Misc::getTemplate($mode), $data);
+    $latte->render(Misc::getTemplate($mode), $params);
 });
 
 Route::run(Misc::getSubDir());
