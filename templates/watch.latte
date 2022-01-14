@@ -6,7 +6,7 @@
 	</style>
 	<rect class="background" width="100%" height="100%" />
 	<text class="header" x="10" y="30">{$username} {$isWatching ? 'is watching' : 'watched'} on Trakt</text>
-	<text n:if="!$isWatching" class="header" x="10" y="50">Watched on: {date("Y-m-d", strtotime($data->watched_at))}</text>
+	<text n:if="!$isWatching" class="header" x="10" y="50">On: {date("Y-m-d", strtotime($data->watched_at))}</text>
 	{if $data->type === 'episode'}
 	<!-- Episode with show -->
 	<g transform="translate(10, 70)">
