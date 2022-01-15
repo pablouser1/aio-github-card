@@ -1,5 +1,5 @@
 # Trakt Github Card
-Dynamic cards for your Github README using Trakt.tv API
+Dynamic cards for your Github README using Trakt.tv API for data and TheMovieDB for images
 
 ## Usage
 You can interactively generate your Markdown [here](https://trakt-github-card.herokuapp.com)
@@ -65,3 +65,10 @@ location /trakt-card/.env {
 
 ## TODO
 * Improve markdown generator on /
+* Scrolling text
+* Better designs
+* Better themes system
+
+## Credits
+* [Trakt](https://trakt.tv)
+* [TheMovieDB](https://themoviedb.org)

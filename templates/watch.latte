@@ -1,25 +1,32 @@
 {contentType xml}
-<svg id="svg" width="360" height="120" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<svg id="svg" width="480" height="240" version="1.1" xmlns="http://www.w3.org/2000/svg">
 	<title>{$username} watching info</title>
 	<style>
 	{getThemeCSS($theme)|noescape}
 	</style>
 	<rect class="background" width="100%" height="100%" />
-	<text class="header" x="10" y="30">{$username} {$isWatching ? 'is watching' : 'watched'} on Trakt</text>
-	<text n:if="!$isWatching" class="header" x="10" y="50">On: {date("Y-m-d", strtotime($data->watched_at))}</text>
-	{if $data->type === 'episode'}
-	<!-- Episode with show -->
-	<g transform="translate(10, 70)">
-		<text class="title">{$data->show->title} ({$data->show->year})</text>
-		<g transform="translate(0, 20)">
-			<text class="text">Episode {$data->episode->number} / {$data->episode->title}</text>
-			<text class="text" y="15">Season {$data->episode->season}</text>
+	<g transform="translate(10, 10)">
+		<image href="data:image/jpg;base64,{base64_encode(file_get_contents($data->poster))}" />
+	</g>
+	{do $logo = $isDarkTheme ? 'svg/trakt-wide-red-white.svg' : 'svg/trakt-wide-red-black.svg'}
+	<image x="160" y="10" width="306" height="60" href="data:image/svg+xml;base64,{base64_encode(file_get_contents($logo))}" />
+	<g transform="translate(164, 75)">
+		<text class="header" x="10" y="30">{$username} {$isWatching ? 'is watching' : 'watched'}</text>
+		<text n:if="!$isWatching" class="header" x="10" y="50">On: {date("Y-m-d", strtotime($data->watched_at))}</text>
+		{if $data->type === 'episode'}
+		<!-- Episode with show -->
+		<g transform="translate(10, 70)">
+			<text class="title">{$data->show->title} ({$data->show->year})</text>
+			<g transform="translate(0, 20)">
+				<text class="text">Episode {$data->episode->number} / {$data->episode->title}</text>
+				<text class="text" y="15">Season {$data->episode->season}</text>
+			</g>
 		</g>
+		{else}
+		<!-- Movie -->
+		<g transform="translate(10, 70)">
+			<text class="title">{$data->movie->title} ({$data->movie->year})</text>
+		</g>
+		{/if}
 	</g>
-	{else}
-	<!-- Movie -->
-	<g transform="translate(10, 70)">
-		<text class="title">{$data->movie->title} ({$data->movie->year})</text>
-	</g>
-	{/if}
 </svg>

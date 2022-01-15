@@ -1,8 +1,10 @@
 <?php
 require './vendor/autoload.php';
+
+use Wrappers\Trakt;
+use Wrappers\TheMovieDB;
 use Steampixel\Route;
 use Helpers\Misc;
-use Helpers\Api;
 use Helpers\Modes;
 use Helpers\Themes;
 
@@ -24,31 +26,36 @@ Route::add('/api', function () {
     if (!isset($_GET['username'])) {
         die('You need to send a username!');
     }
-
+    // Themes
     $theme = 'default';
     if (isset($_GET['theme']) && !empty($_GET['theme'])) {
         $theme = $_GET['theme'];
     }
+    if (!in_array($theme, array_keys(Themes::all))) {
+        return 'Invalid theme';
+    }
+    $isDarkTheme = Themes::all[$theme]['isDark'];
     $mode = $_GET['mode'];
     $username = $_GET['username'];
     $latte = Misc::latte();
-    $api = new Api($username);
+    $trakt = new Trakt($username);
     header('Content-Type: image/svg+xml');
     header('Cache-Control: s-maxage=60');
     $params = [
         'username' => $username,
-        'theme' => $theme
+        'theme' => $theme,
+        'isDarkTheme' => $isDarkTheme
     ];
     switch ($mode) {
         case 'stats':
-            $stats = $api->stats();
+            $stats = $trakt->stats();
             $params['data'] = $stats;
             break;
         case 'watch':
-            $watching = $api->watching();
+            $watching = $trakt->watching();
             if (!$watching) {
                 // If user is not watching, get latest stuff he saw
-                $watched = $api->watched();
+                $watched = $trakt->watched();
                 if ($watched) {
                     $num_elements = count($watched);
                     $chosen = rand(0, $num_elements - 1);
@@ -60,6 +67,15 @@ Route::add('/api', function () {
                 $params['data'] = $watching;
                 $params['isWatching'] = true;
             }
+            $type = $params['data']->type;
+            $id = $params['data']->{$type}->ids->tmdb;
+            if ($type === 'episode') {
+                $id = $params['data']->show->ids->tmdb;
+                $type = 'tv';
+            }
+            $moviedb = new TheMovieDB($id, $type);
+            $image = $moviedb->poster();
+            $params['data']->poster = $image;
             break;
         default:
             die('Invalid mode!');
