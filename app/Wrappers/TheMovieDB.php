@@ -1,5 +1,5 @@
 <?php
-namespace Wrappers;
+namespace App\Wrappers;
 
 class TheMovieDB extends Base {
     const IMAGE_URL = 'https://image.tmdb.org/t/p';

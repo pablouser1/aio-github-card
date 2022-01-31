@@ -4,8 +4,59 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c534fe37c67e071b680b668084c9a8ab",
+    "content-hash": "474831fdbfe97ed5a7d4f821a3d15166",
     "packages": [
+        {
+            "name": "bramus/router",
+            "version": "1.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bramus/router.git",
+                "reference": "55657b76da8a0a509250fb55b9dd24e1aa237eba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bramus/router/zipball/55657b76da8a0a509250fb55b9dd24e1aa237eba",
+                "reference": "55657b76da8a0a509250fb55b9dd24e1aa237eba",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "~2.14",
+                "phpunit/php-code-coverage": "~2.0",
+                "phpunit/phpunit": "~4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Bramus": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bram(us) Van Damme",
+                    "email": "bramus@bram.us",
+                    "homepage": "http://www.bram.us"
+                }
+            ],
+            "description": "A lightweight and simple object oriented PHP Router",
+            "homepage": "https://github.com/bramus/router",
+            "keywords": [
+                "router",
+                "routing"
+            ],
+            "support": {
+                "issues": "https://github.com/bramus/router/issues",
+                "source": "https://github.com/bramus/router/tree/1.6.1"
+            },
+            "time": "2021-11-18T19:24:07+00:00"
+        },
         {
             "name": "graham-campbell/result-type",
             "version": "v1.0.4",
@@ -222,49 +273,6 @@
                 }
             ],
             "time": "2021-12-04T23:24:31+00:00"
-        },
-        {
-            "name": "steampixel/simple-php-router",
-            "version": "0.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/steampixel/simplePHPRouter.git",
-                "reference": "91aec2d0bca3619c0552e2bfcebb8936e6f83bb9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/steampixel/simplePHPRouter/zipball/91aec2d0bca3619c0552e2bfcebb8936e6f83bb9",
-                "reference": "91aec2d0bca3619c0552e2bfcebb8936e6f83bb9",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Steampixel": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Christoph Stitz",
-                    "email": "info@steampixel.de",
-                    "homepage": "https://steampixel.de/"
-                },
-                {
-                    "name": "Maximilian Götz",
-                    "email": "contact@maxbits.net",
-                    "homepage": "https://www.maxbits.net/"
-                }
-            ],
-            "description": "This is a simple and small PHP router that can handel the whole url routing for your project.",
-            "support": {
-                "issues": "https://github.com/steampixel/simplePHPRouter/issues",
-                "source": "https://github.com/steampixel/simplePHPRouter/tree/0.7.0"
-            },
-            "time": "2021-03-22T08:11:59+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -603,7 +611,8 @@
     "prefer-lowest": false,
     "platform": {
         "ext-mbstring": "*",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "php": "^7.3|^8.0"
     },
     "platform-dev": [],
     "plugin-api-version": "2.2.0"

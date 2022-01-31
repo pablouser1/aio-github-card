@@ -1,7 +1,7 @@
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule . index.php [L]
+RewriteRule . api/index.php [L]
 
 # Disable index view
 Options -Indexes

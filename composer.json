@@ -5,15 +5,15 @@
     "license": "AGPL-3.0-or-later",
     "autoload": {
         "psr-4": {
-            "Wrappers\\": "wrappers/",
-            "Helpers\\": "helpers/"
+            "App\\": "app/"
         }
     },
     "require": {
         "ext-mbstring": "*",
         "ext-curl": "*",
+        "php": "^7.3|^8.0",
         "vlucas/phpdotenv": "^5.4",
-        "steampixel/simple-php-router": "^0.7.0",
-        "latte/latte": "^2.10"
+        "latte/latte": "^2.10",
+        "bramus/router": "^1.6"
     }
 }

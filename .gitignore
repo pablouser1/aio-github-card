@@ -3,3 +3,5 @@
 /.vscode
 /cache/templates/*
 !/cache/templates/.gitkeep
+
+.vercel

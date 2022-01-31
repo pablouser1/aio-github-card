@@ -1,28 +1,28 @@
 <?php
-namespace Helpers;
+namespace App\Helpers;
+
 class Misc {
-    static public function getSubDir(): string {
-        return isset($_ENV['APP_SUBDIR']) && !empty($_ENV['APP_SUBDIR']) ? $_ENV['APP_SUBDIR'] : '/';
+    static private function env(string $key, mixed $default_value): string {
+        return isset($_ENV[$key]) && !empty($_ENV[$key]) ? $_ENV[$key] : $default_value;
+    }
+
+    static public function getURL(): string {
+        return self::env('APP_URL', '/');
     }
 
     static public function getTemplate(string $template): string {
-        return __DIR__ . "/../templates/{$template}.latte";
+        return __DIR__ . "/../../templates/{$template}.latte";
     }
 
     static public function latte(): \Latte\Engine {
-        // Workaround to avoid weird path issues
-        $subdir = Misc::getSubDir();
-        if ($subdir === '/') {
-            $subdir = '';
-        }
+        $url = self::getURL();
         $latte = new \Latte\Engine;
-        $latte->setTempDirectory(__DIR__ . '/../cache/templates');
-        $latte->addFunction('assets', function (string $name, string $type) use ($subdir) {
-            $path = "{$subdir}/{$type}/{$name}";
+        $latte->addFunction('assets', function (string $name, string $type) use ($url) {
+            $path = "{$url}/{$type}/{$name}";
             return $path;
         });
-        $latte->addFunction('path', function (string $name) use ($subdir) {
-            $path = "{$subdir}/{$name}";
+        $latte->addFunction('path', function (string $name) use ($url) {
+            $path = "{$url}/{$name}";
             return $path;
         });
         $latte->addFunction('toHours', function (int $minutes): int {

@@ -1,23 +1,23 @@
 <?php
-require './vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
-use Wrappers\Trakt;
-use Wrappers\TheMovieDB;
-use Steampixel\Route;
-use Helpers\Misc;
-use Helpers\Modes;
-use Helpers\Themes;
+use App\Wrappers\Trakt;
+use App\Wrappers\TheMovieDB;
+use App\Helpers\Misc;
+use App\Helpers\Modes;
+use App\Helpers\Themes;
 
 // LOAD DOTENV
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->safeLoad();
 
-Route::add('/', function () {
+$router = new \Bramus\Router\Router();
+
+$router->get('/', function () {
     $latte = Misc::latte();
     $latte->render(Misc::getTemplate('index'), ['themes' => array_keys(Themes::all), 'modes' => Modes::all]);
 });
-
-Route::add('/api', function () {
+$router->get('/card', function () {
     // Requiered checks
     if (!isset($_GET['mode'])) {
         die('You need to send a mode!');
@@ -83,4 +83,4 @@ Route::add('/api', function () {
     $latte->render(Misc::getTemplate($mode), $params);
 });
 
-Route::run(Misc::getSubDir());
+$router->run();

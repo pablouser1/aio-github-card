@@ -1,7 +1,8 @@
 <?php
-namespace Helpers;
+namespace App\Helpers;
+
 class Themes {
-    const BASE_DIR = __DIR__ . '/../themes';
+    const BASE_DIR = __DIR__ . '/../../themes';
     const all = [
         'default' => [
             'isDark' => false

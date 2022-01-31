@@ -1,5 +1,5 @@
 <?php
-namespace Wrappers;
+namespace App\Wrappers;
 
 class Base {
     private $base_url = '';

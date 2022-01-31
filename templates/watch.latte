@@ -8,7 +8,7 @@
 	<g transform="translate(10, 10)">
 		<image href="data:image/jpg;base64,{base64_encode(file_get_contents($data->poster))}" />
 	</g>
-	{do $logo = $isDarkTheme ? 'svg/trakt-wide-red-white.svg' : 'svg/trakt-wide-red-black.svg'}
+	{do $logo = $isDarkTheme ? path('svg/trakt-wide-red-white.svg') : path('svg/trakt-wide-red-black.svg')}
 	<image x="160" y="10" width="306" height="60" href="data:image/svg+xml;base64,{base64_encode(file_get_contents($logo))}" />
 	<g transform="translate(164, 75)">
 		<text class="header" x="10" y="30">{$username} {$isWatching ? 'is watching' : 'watched'}</text>

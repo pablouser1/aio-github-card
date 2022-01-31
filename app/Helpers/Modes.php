@@ -1,5 +1,5 @@
 <?php
-namespace Helpers;
+namespace App\Helpers;
 
 class Modes {
     const all = [

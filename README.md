@@ -34,9 +34,9 @@ Clone the repository and fetch the requiered external packages with:
 composer install
 ```
 
-Then you can run it using for example the PHP Development Server with:
+Then you can run it locally using for example the PHP Development Server with:
 ```bash
-php -S localhost:8080
+php -S localhost:8000 api/index.php
 ```
 ### Config
 You need to create a new application on Trakt [here](https://trakt.tv/oauth/applications/new), then copy the CLIENT_ID to .env
@@ -54,7 +54,7 @@ location /trakt-card {
 }
 
 location /trakt-card/ {
-    try_files $uri $uri/ /trakt-card/index.php?$query_string;
+    try_files $uri $uri/ /trakt-card/api/index.php?$query_string;
 }
 
 location /trakt-card/.env {
