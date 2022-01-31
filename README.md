@@ -2,7 +2,7 @@
 Dynamic cards for your Github README using Trakt.tv API for data and TheMovieDB for images
 
 ## Usage
-You can interactively generate your Markdown [here](https://trakt-github-card.herokuapp.com)
+You can interactively generate your Markdown [here](https://trakt-github-card.vercel.app)
 
 or you can manually generate your request. More info on the next section
 
