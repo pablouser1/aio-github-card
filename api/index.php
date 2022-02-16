@@ -17,6 +17,7 @@ $router->get('/', function () {
     $latte = Misc::latte();
     $latte->render(Misc::getTemplate('index'), ['themes' => array_keys(Themes::all), 'modes' => Modes::all]);
 });
+
 $router->get('/card', function () {
     // Requiered checks
     if (!isset($_GET['mode'])) {
@@ -40,7 +41,7 @@ $router->get('/card', function () {
     $latte = Misc::latte();
     $trakt = new Trakt($username);
     header('Content-Type: image/svg+xml');
-    header('Cache-Control: s-maxage=60');
+    header('Cache-Control: s-maxage=1');
     $params = [
         'username' => $username,
         'theme' => $theme,
