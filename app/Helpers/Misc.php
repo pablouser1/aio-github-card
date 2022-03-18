@@ -2,12 +2,8 @@
 namespace App\Helpers;
 
 class Misc {
-    static private function env(string $key, mixed $default_value): string {
+    static public function env(string $key, $default_value) {
         return isset($_ENV[$key]) && !empty($_ENV[$key]) ? $_ENV[$key] : $default_value;
-    }
-
-    static public function getURL(): string {
-        return self::env('APP_URL', '/');
     }
 
     static public function getTemplate(string $template): string {
@@ -15,15 +11,10 @@ class Misc {
     }
 
     static public function latte(): \Latte\Engine {
-        $url = self::getURL();
         $latte = new \Latte\Engine;
-        $latte->addFunction('assets', function (string $name, string $type) use ($url) {
-            $path = "{$url}/{$type}/{$name}";
-            return $path;
-        });
-        $latte->addFunction('path', function (string $name) use ($url) {
-            $path = "{$url}/{$name}";
-            return $path;
+        $latte->addFunction('local', function (string $path) {
+            $local = __DIR__ . '/../..' . $path;
+            return $local;
         });
         $latte->addFunction('toHours', function (int $minutes): int {
             return round($minutes / 60, 2);

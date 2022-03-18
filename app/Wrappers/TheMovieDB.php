@@ -1,17 +1,19 @@
 <?php
 namespace App\Wrappers;
 
+use App\Helpers\Misc;
+
 class TheMovieDB extends Base {
     const IMAGE_URL = 'https://image.tmdb.org/t/p';
     private int $id;
     public string $type;
 
     function __construct(int $id, string $type) {
-        if (!isset($_ENV['TMDB_TOKEN'])) {
+        $token = Misc::env('TMDB_TOKEN', '');
+        if (!$token) {
             throw new \Exception('You need to set your The Movie DB token!');
         }
 
-        $token = $_ENV['TMDB_TOKEN'];
         parent::__construct('https://api.themoviedb.org/3', ["Content-Type: application/json; charset=utf-8"], [
             'api_key' => $token
         ]);

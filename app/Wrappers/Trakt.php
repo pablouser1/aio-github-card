@@ -1,15 +1,17 @@
 <?php
 namespace App\Wrappers;
 
+use App\Helpers\Misc;
+
 class Trakt extends Base {
     private $username = '';
 
     function __construct(string $username) {
-        if (!isset($_ENV['TRAKT_CLIENT_ID'])) {
+        $client_id = Misc::env('TRAKT_CLIENT_ID', '');
+        if (!$client_id) {
             throw new \Exception('You need to set your Trakt client id!');
         }
 
-        $client_id = $_ENV['TRAKT_CLIENT_ID'];
         parent::__construct('https://api.trakt.tv', [
             "Content-Type: application/json",
             "trakt-api-version: 2",
