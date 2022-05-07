@@ -35,6 +35,10 @@ $router->get('/card', function () {
     if (!in_array($theme, array_keys(Themes::all))) {
         return 'Invalid theme';
     }
+    // Width
+    if (isset($_GET['width']) && is_numeric($_GET['width'])) {
+        $width = intval($_GET['width']);
+    }
     $isDarkTheme = Themes::all[$theme]['isDark'];
     $mode = $_GET['mode'];
     $username = $_GET['username'];
@@ -45,6 +49,10 @@ $router->get('/card', function () {
     $params = [
         'username' => $username,
         'theme' => $theme,
+        'width' =>  isset($width) ? $width:[
+            'stats' => 300,
+            'watch' => 380
+        ][$mode],
         'isDarkTheme' => $isDarkTheme
     ];
     switch ($mode) {

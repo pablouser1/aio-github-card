@@ -19,6 +19,9 @@ More modes will be added in the future
 ### Username (required)
 The profile you want to get the data from
 
+### Width
+Allows user to set svg width
+
 ### Theme
 The available themes are:
 * default
