@@ -12,7 +12,7 @@ class Base {
         $this->params = $params;
     }
 
-    protected function request (string $endpoint) {
+    protected function request (string $endpoint): object {
         $ch = curl_init();
         $url = $this->base_url . $endpoint . '?' . http_build_query($this->params);
         curl_setopt($ch, CURLOPT_URL, $url);

@@ -1,6 +1,7 @@
 {
     "name": "pablouser1/trakt-github-card",
     "description": "Currently watching card for Github README",
+    "version": "1.2.0.0",
     "type": "project",
     "license": "AGPL-3.0-or-later",
     "autoload": {
@@ -9,11 +10,10 @@
         }
     },
     "require": {
-        "ext-mbstring": "*",
         "ext-curl": "*",
         "php": "^7.3|^8.0",
-        "vlucas/phpdotenv": "^5.4",
-        "latte/latte": "^2.10",
-        "bramus/router": "^1.6"
+        "bramus/router": "^1.6",
+        "league/plates": "^3.4",
+        "josegonzalez/dotenv": "dev-master"
     }
 }

@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Trakt Github Card</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-	<script n:syntax="double">
+	<script>
 		const API_URL = './card'
 	</script>
 </head>
@@ -27,9 +27,9 @@
 					<label class="label">Themes</label>
 					<div class="select">
 						<select name="theme" value="default">
-							{foreach $themes as $theme}
-							<option value="{$theme}">{$theme|firstUpper}</option>
-							{/foreach}
+                            <?php foreach ($themes as $theme): ?>
+							    <option value="<?= $this->e($theme)?>"><?= $this->e($theme, 'ucfirst') ?></option>
+							<?php endforeach ?>
 						</select>
 					</div>
 				</div>
@@ -37,9 +37,9 @@
 					<label class="label">Modes</label>
 					<div class="select">
 						<select name="mode" value="default">
-							{foreach $modes as $mode}
-							<option value="{$mode}">{$mode|firstUpper}</option>
-							{/foreach}
+                            <?php foreach ($modes as $mode): ?>
+							    <option value="<?= $this->e($mode)?>"><?= $this->e($mode, 'ucfirst') ?></option>
+							<?php endforeach ?>
 						</select>
 					</div>
 				</div>
@@ -62,6 +62,6 @@
 			</div>
 		</div>
 	</section>
-	<script src="./scripts/index.js"></script>
+	<script src="./scripts/home.js"></script>
 </body>
 </html>

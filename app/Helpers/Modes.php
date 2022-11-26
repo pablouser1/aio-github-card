@@ -1,7 +1,7 @@
 <?php
 namespace App\Helpers;
 
-class Modes {
+abstract class Modes {
     const all = [
         'stats', 'watch'
     ];

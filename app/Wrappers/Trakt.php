@@ -24,12 +24,12 @@ class Trakt extends Base {
         return $this->request("/users/{$this->username}/stats")->data;
     }
 
-    public function watching(): object | false {
+    public function watching(): ?object {
         $res = $this->request("/users/{$this->username}/watching");
         if ($res->success && $res->data) {
             return $res->data;
         }
-        return false;
+        return null;
     }
 
     public function watched(): array {

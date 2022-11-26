@@ -8,48 +8,58 @@ use App\Helpers\Modes;
 use App\Helpers\Themes;
 
 // LOAD DOTENV
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
-$dotenv->safeLoad();
+$dotenv = new josegonzalez\Dotenv\Loader(__DIR__ . '/../.env');
+$dotenv->raiseExceptions(false);
+$result = $dotenv->parse();
+if ($result !== false) {
+    $dotenv->toEnv();
+}
 
 $router = new \Bramus\Router\Router();
 
 $router->get('/', function () {
-    $latte = Misc::latte();
-    $latte->render(Misc::getTemplate('index'), ['themes' => array_keys(Themes::all), 'modes' => Modes::all]);
+    Misc::plates('home', [
+        'themes' => array_keys(Themes::all),
+        'modes' => Modes::all
+    ]);
 });
 
 $router->get('/card', function () {
     // Requiered checks
-    if (!isset($_GET['mode'])) {
-        die('You need to send a mode!');
+
+    // Modes
+    $mode = 'stats';
+    if (isset($_GET['mode']) && !empty($_GET['mode'])) {
+        $mode = trim($_GET['mode']);
+    }
+    if (!in_array($mode, Modes::all)) {
+        die('Invalid mode');
     }
 
-    if (!isset($_GET['username'])) {
-        die('You need to send a username!');
-    }
     // Themes
     $theme = 'default';
     if (isset($_GET['theme']) && !empty($_GET['theme'])) {
-        $theme = $_GET['theme'];
+        $theme = trim($_GET['theme']);
     }
     if (!in_array($theme, array_keys(Themes::all))) {
-        return 'Invalid theme';
+        die('Invalid theme');
     }
+
     // Width
     if (isset($_GET['width']) && is_numeric($_GET['width'])) {
         $width = intval($_GET['width']);
     }
+
+    // -- Starting --
     $isDarkTheme = Themes::all[$theme]['isDark'];
-    $mode = $_GET['mode'];
-    $username = $_GET['username'];
-    $latte = Misc::latte();
+    $username = trim($_GET['username']);
     $trakt = new Trakt($username);
     header('Content-Type: image/svg+xml');
     header('Cache-Control: s-maxage=1');
     $params = [
         'username' => $username,
         'theme' => $theme,
-        'width' =>  isset($width) ? $width:[
+        'width' =>  isset($width) ? $width : [
             'stats' => 300,
             'watch' => 380
         ][$mode],
@@ -86,10 +96,8 @@ $router->get('/card', function () {
             $image = $moviedb->poster();
             $params['data']->poster = $image;
             break;
-        default:
-            die('Invalid mode!');
     }
-    $latte->render(Misc::getTemplate($mode), $params);
+    Misc::plates($mode, $params);
 });
 
 $router->run();
