@@ -1,7 +1,7 @@
 {
     "name": "pablouser1/trakt-github-card",
     "description": "Currently watching card for Github README",
-    "version": "1.2.0.0",
+    "version": "1.2.1.0",
     "type": "project",
     "license": "AGPL-3.0-or-later",
     "autoload": {

@@ -20,7 +20,7 @@ class Trakt extends Base {
         $this->username = $username;
     }
 
-    public function stats(): object {
+    public function stats(): ?object {
         return $this->request("/users/{$this->username}/stats")->data;
     }
 
@@ -32,7 +32,7 @@ class Trakt extends Base {
         return null;
     }
 
-    public function watched(): array {
+    public function watched(): ?array {
         return $this->request("/users/{$this->username}/history")->data;
     }
 }

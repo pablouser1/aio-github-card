@@ -67,7 +67,6 @@ location /trakt-card/.env {
 ```
 
 ## TODO
-* Improve markdown generator on /
 * Scrolling text
 * Better designs
 * Better themes system
