@@ -12,8 +12,8 @@
     "require": {
         "ext-curl": "*",
         "php": "^7.3|^8.0",
-        "bramus/router": "^1.6",
-        "league/plates": "^3.4",
+        "bramus/router": "~1.6",
+        "league/plates": "^3.5",
         "josegonzalez/dotenv": "dev-master"
     }
 }
