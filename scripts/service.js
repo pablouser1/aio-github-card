@@ -2,16 +2,16 @@ const form = document.getElementById('settings_form')
 const svg = document.getElementById('svg')
 const textarea = document.getElementById('textarea')
 
-const markdown_template = '[![trakt-github-card](URL_HERE)](https://github.com/pablouser1/trakt-github-card)'
+const markdown_template = '[![aio-github-card](URL_HERE)](https://github.com/pablouser1/aio-github-card)'
 
-const setData = e => {
+const setData = (e) => {
   e.preventDefault()
   const formData = new FormData(e.target)
   const username = formData.get('username')
   const mode = formData.get('mode')
   const theme = formData.get('theme')
-  const params = {username, mode, theme}
-  const url = new URL(API_URL, document.baseURI)
+  const params = {username, theme}
+  const url = new URL(`${document.baseURI}/${mode}`)
   url.search = new URLSearchParams(params)
   svg.src = url
 
