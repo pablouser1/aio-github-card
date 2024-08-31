@@ -1,5 +1,5 @@
 <?php
-namespace App\Services;
+namespace App\Helpers;
 
 class Trakt {
   public static function show_url(string $showId, string $seasonId = "", string $episodeId = ""): string {

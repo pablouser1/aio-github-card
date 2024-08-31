@@ -1,7 +1,6 @@
 <?php
 namespace App\Wrappers;
-
-use App\Helpers\Misc;
+use App\Helpers\Env;
 
 class TheMovieDB extends Base {
   const IMAGE_URL = 'https://image.tmdb.org/t/p';
@@ -9,8 +8,8 @@ class TheMovieDB extends Base {
   public string $type;
 
   function __construct(int $id, string $type) {
-    $token = Misc::env('TMDB_TOKEN', '');
-    if (!$token) {
+    $token = Env::tmdb_token();
+    if ($token === '') {
       throw new \Exception('You need to set your The Movie DB token!');
     }
 

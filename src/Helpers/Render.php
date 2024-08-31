@@ -1,7 +1,6 @@
 <?php
 namespace App\Helpers;
 use App\Models\Params;
-use App\Services\Trakt;
 use App\Wrappers\Backloggd;
 
 class Render {

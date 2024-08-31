@@ -5,15 +5,12 @@ use App\Models\Game;
 
 class Backloggd extends Base {
   public const BASE_URL = "https://backloggd.com";
+
+  protected bool $spoof_ua = true;
   private string $username;
 
-  private const USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
-
   public function __construct(string $username) {
-    $ua = self::USER_AGENT;
-    parent::__construct(self::BASE_URL, [], [
-      "User-Agent: $ua"
-    ]);
+    parent::__construct(self::BASE_URL);
     $this->username = $username;
   }
 
@@ -39,24 +36,24 @@ class Backloggd extends Base {
       $imgs = $xp->query(".//img[@alt and contains(@class, 'card-img')]", $el);
       $anchors = $xp->query(".//a[contains(@class, 'cover-link')]", $el);
       if ($imgs->count() > 0 && $anchors->count() > 0) {
-        $game = new Game;
 
         // Get name and image from <img>
         $img = $imgs->item(0);
-        $game->name = $img->getAttribute("alt");
-        $game->image = $img->getAttribute("src");
+        $name = $img->getAttribute("alt");
+        $image = $img->getAttribute("src");
 
         // Get url from <a>
         $a = $anchors->item(0);
-        $game->path = $a->getAttribute("href");
+        $path = $a->getAttribute("href");
 
         // Optionally get user review
+        $rating = -1;
         $ratingStr = $el->getAttribute("data-rating");
         if ($ratingStr !== "") {
-          $game->rating = intval($ratingStr);
+          $rating = intval($ratingStr);
         }
 
-        array_push($games, $game);
+        $games[] = new Game($name, $image, $path, $rating);
       }
     }
 

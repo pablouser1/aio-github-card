@@ -1,12 +1,12 @@
 <?php
 use App\Constants;
+use App\Helpers\Env;
 use App\Helpers\Render;
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $router = new \Bramus\Router\Router();
 
-$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
-$dotenv->safeLoad();
+Env::parse(__DIR__ . '/../.env');
 
 $router->get('/', function () {
   Render::page("home", [

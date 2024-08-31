@@ -1,28 +1,30 @@
 <?php
 namespace App\Wrappers;
-
-use App\Helpers\Misc;
+use App\Helpers\Env;
 
 class Trakt extends Base {
-  private $username = '';
+  private string $username = '';
 
-  function __construct(string $username)
-  {
-    $client_id = Misc::env('TRAKT_CLIENT_ID', '');
-    if (!$client_id) {
+  function __construct(string $username) {
+    $client_id = Env::trakt_client_id();
+    if ($client_id === '') {
       throw new \Exception('You need to set your Trakt client id!');
     }
 
     parent::__construct('https://api.trakt.tv', [], [
-      "Content-Type: application/json",
+      "content-type: application/json",
       "trakt-api-version: 2",
-      "trakt-api-key: " . $client_id
+      "trakt-api-key: $client_id"
     ]);
     $this->username = $username;
   }
 
   public function stats(): ?object {
-    return $this->request("/users/{$this->username}/stats")->data;
+    $res = $this->request("/users/{$this->username}/stats");
+    if ($res->success && $res->data) {
+      return $res->data;
+    }
+    return null;
   }
 
   public function watching(): ?object {
@@ -34,6 +36,10 @@ class Trakt extends Base {
   }
 
   public function watched(): ?array {
-    return $this->request("/users/{$this->username}/history")->data;
+    $res = $this->request("/users/{$this->username}/history");
+    if ($res->success && $res->data) {
+      return $res->data;
+    }
+    return null;
   }
 }

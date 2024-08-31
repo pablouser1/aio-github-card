@@ -6,9 +6,19 @@ class Base {
   private array $params = [];
   private array $headers = [];
 
+  protected bool $spoof_ua = false;
+
+  private const SPOOF_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
+
   function __construct(string $base_url, array $params = [], array $headers = []) {
     $this->base_url = $base_url;
     $this->params = $params;
+
+    if ($this->spoof_ua) {
+      $ua = self::SPOOF_UA;
+      $headers[] = "User-Agent: $ua";
+    }
+
     $this->headers = $headers;
   }
 

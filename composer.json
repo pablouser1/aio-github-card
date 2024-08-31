@@ -18,7 +18,6 @@
     "ext-curl": "*",
     "php": "^7.4|^8.0",
     "bramus/router": "~1.6",
-    "league/plates": "^3.5",
-    "vlucas/phpdotenv": "^5.6"
+    "league/plates": "^3.5"
   }
 }
