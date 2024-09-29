@@ -1,5 +1,7 @@
 <?php
 namespace App\Wrappers;
+use App\Cache\ICache;
+use App\Models\CacheData;
 
 class Base {
   private string $base_url = '';
@@ -7,19 +9,22 @@ class Base {
   private array $headers = [];
 
   protected bool $spoof_ua = false;
+  private const BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
 
-  private const SPOOF_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
+  private ?ICache $cacheEngine = null;
 
-  function __construct(string $base_url, array $params = [], array $headers = []) {
+  function __construct(string $base_url, array $params = [], array $headers = [], ?ICache $engine = null) {
     $this->base_url = $base_url;
     $this->params = $params;
 
     if ($this->spoof_ua) {
-      $ua = self::SPOOF_UA;
+      $ua = self::BROWSER_UA;
       $headers[] = "User-Agent: $ua";
     }
 
     $this->headers = $headers;
+
+    $this->cacheEngine = $engine;
   }
 
   protected function request(string $endpoint, array $params = [], bool $isJson = true): object {
@@ -47,5 +52,19 @@ class Base {
       return (object) ['success' => true, 'data' => $data];
     }
     return (object) ['success' => false, 'data' => null];
+  }
+
+  protected function getCache(string $service, string $endpoint, string $payload): CacheData {
+    if ($this->cacheEngine !== null) {
+      return $this->cacheEngine->get("$service-$endpoint-$payload");
+    }
+
+    return new CacheData(false, []);
+  }
+
+  protected function setCache(string $service, string $endpoint, string $payload, mixed $data): void {
+    if ($this->cacheEngine !== null) {
+      $this->cacheEngine->set("$service-$endpoint-$payload", $data);
+    }
   }
 }

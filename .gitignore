@@ -2,3 +2,7 @@
 /vendor
 /.vscode
 .vercel
+
+# Cache JSON
+/cache/requests/*
+!/cache/requests/.gitkeep

@@ -1,7 +1,7 @@
 {
   "name": "pablouser1/aio-github-card",
   "description": "Cards for multiple services for your Github README",
-  "version": "1.3.0.0",
+  "version": "1.3.1.0",
   "type": "project",
   "license": "AGPL-3.0-or-later",
   "autoload": {
@@ -11,12 +11,13 @@
   },
   "authors": [
     {
-      "name": "Pablo Ferreiro"
+      "name": "Pablo Ferreiro",
+      "homepage": "https://pabloferreiro.es"
     }
   ],
   "require": {
     "ext-curl": "*",
-    "php": "^7.4|^8.0",
+    "php": "^8.0",
     "bramus/router": "~1.6",
     "league/plates": "^3.5"
   }

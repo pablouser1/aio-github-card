@@ -23,8 +23,8 @@ class Env {
     return $_ENV["TMDB_TOKEN"] ?? '';
   }
 
-  public static function wrapper_cache(): string {
-    return $_ENV['WRAPPER_CACHE'] ?? '';
+  public static function request_cache(): string {
+    return $_ENV['REQUEST_CACHE'] ?? '';
   }
 
   public static function redis(): array {

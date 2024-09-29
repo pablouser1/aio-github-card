@@ -9,7 +9,7 @@ class Render {
    */
   static public function card(string $view, Params $params, object $data): void {
     $engine = new \League\Plates\Engine(__DIR__ . '/../../templates');
-    $engine->registerFunction('toHours', function (int $minutes): int {
+    $engine->registerFunction('toHours', function (int $minutes): float {
       return round($minutes / 60, 2);
     });
     $engine->registerFunction('getThemeCSS', [Themes::class, 'getCSS']);

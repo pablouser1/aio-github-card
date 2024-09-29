@@ -1,6 +1,7 @@
 <?php
 namespace App\Wrappers;
 
+use App\Cache\ICache;
 use App\Models\Game;
 
 class Backloggd extends Base {
@@ -9,12 +10,24 @@ class Backloggd extends Base {
   protected bool $spoof_ua = true;
   private string $username;
 
-  public function __construct(string $username) {
-    parent::__construct(self::BASE_URL);
+  public function __construct(string $username, ?ICache $engine = null) {
+    parent::__construct(self::BASE_URL, [], [], $engine);
     $this->username = $username;
   }
 
-  public function played(): ?Game {
+  public function played(): ?array {
+    $games = [];
+    $cache = $this->getCache('backloggd', 'played', $this->username);
+    $games = $cache->exists ? $cache->data : $this->_fetchPlayed();
+    if ($games !== null && count($games) > 0) {
+      return $games;
+    }
+
+    // IT JUST HAS NO GAMES
+    return null;
+  }
+
+  private function _fetchPlayed(): ?array {
     $res = $this->request("/u/" . $this->username . "/games/added:desc/", [], false);
     if (!$res->success) {
       return null;
@@ -57,13 +70,8 @@ class Backloggd extends Base {
       }
     }
 
-    if (count($games) === 0) {
-      // IT JUST HAS NO GAMES
-      return null;
-    }
+    $this->setCache('backloggd', 'played', $this->username, json_encode($games));
 
-    // Pick random game
-    $index = array_rand($games);
-    return $games[$index];
+    return $games;
   }
 }

@@ -1,5 +1,5 @@
 # All-in-one Github Card
-Dynamic cards for your Github README for multiple services
+Dynamic cards for your Github README for multiple services using PHP >= 8.0
 
 ## Supported services
 * Trakt (https://trakt.tv)

@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 use App\Constants;
+use App\Helpers\Cache;
 use App\Helpers\Errors;
 use App\Helpers\Misc;
 use App\Helpers\Render;
@@ -30,15 +31,19 @@ class BackloggdController {
 
     Misc::setupHeaders();
 
-    $bkl = new Backloggd($params->username);
+    $engine = Cache::getEngine();
+
+    $bkl = new Backloggd($params->username, $engine);
 
     $data = $bkl->played();
-
     if ($data === null) {
       Errors::show("Could not get data from Backloggd!");
       return;
     }
 
-    Render::card("backloggd/played", $params, $data);
+    $index = array_rand($data);
+    $game = $data[$index];
+
+    Render::card("backloggd/played", $params, $game);
   }
 }

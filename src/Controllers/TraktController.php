@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Constants;
+use App\Helpers\Cache;
 use App\Helpers\Errors;
 use App\Helpers\Misc;
 use App\Helpers\Render;
@@ -33,7 +34,8 @@ class TraktController {
 
     Misc::setupHeaders();
 
-    $trakt = new Trakt($params->username);
+    $engine = Cache::getEngine();
+    $trakt = new Trakt($params->username, $engine);
     $stats = $trakt->stats();
 
     Render::card("trakt/stats", $params, $stats);
@@ -50,7 +52,8 @@ class TraktController {
 
     Misc::setupHeaders();
 
-    $trakt = new Trakt($params->username);
+    $engine = Cache::getEngine();
+    $trakt = new Trakt($params->username, $engine);
 
     $data = new \stdClass;
 
@@ -75,7 +78,7 @@ class TraktController {
       $id = $data->show->ids->tmdb;
       $type = 'tv';
     }
-    $moviedb = new TheMovieDB($id, $type);
+    $moviedb = new TheMovieDB($id, $type, $engine);
     $image = $moviedb->poster();
     $data->poster = $image;
 
