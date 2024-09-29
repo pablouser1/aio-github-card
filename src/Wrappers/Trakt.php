@@ -13,8 +13,8 @@ class Trakt extends Base {
     }
 
     parent::__construct('https://api.trakt.tv', [], [
-      "content-type: application/json",
-      "trakt-api-version: 2",
+      'content-type: application/json',
+      'trakt-api-version: 2',
       "trakt-api-key: $client_id"
     ], $engine);
     $this->username = $username;
