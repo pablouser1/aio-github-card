@@ -23,6 +23,7 @@ $router->mount('/trakt', function () use ($router) {
   $router->get('/watch', [TraktController::class, 'watch']);
 });
 
+// Backloggd (https://backloggd.com)
 $router->mount('/backloggd', function () use ($router) {
   $router->get('/', [BackloggdController::class, 'index']);
   $router->get('/played', [BackloggdController::class, 'played']);
