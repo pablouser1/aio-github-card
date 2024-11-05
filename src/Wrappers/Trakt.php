@@ -26,8 +26,7 @@ class Trakt extends Base {
   }
 
   public function watching(): ?object {
-    $cache = $this->getCache('trakt', 'watching', $this->username);
-    return $cache->exists ? $cache->data : $this->_fetchWatching();
+    return $this->_fetchWatching();
   }
 
   public function watched(): ?array {
@@ -47,7 +46,6 @@ class Trakt extends Base {
   private function _fetchWatching(): ?object {
     $res = $this->request("/users/{$this->username}/watching");
     if ($res->success && $res->data) {
-      $this->setCache('trakt', 'watching', $this->username, json_encode($res->data));
       return $res->data;
     }
     return null;
