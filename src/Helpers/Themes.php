@@ -9,8 +9,8 @@ class Themes {
 
   const ALL = [
     "trakt" => [
-      "default" => "trakt-wide-red-black.svg",
-      "dark" => "trakt-wide-red-white.svg"
+      "default" => "trakt-black-text.svg",
+      "dark" => "trakt-white-text.svg"
     ],
     "backloggd" => [
       "default" => "backloggd-light.png",
@@ -22,11 +22,12 @@ class Themes {
     return file_get_contents($basepath . '/' . basename($filename));
   }
 
-  public static function getCSS(string $theme): string {
+  public static function getCSS(string $theme, string $service): string {
     if (in_array($theme, Constants::THEMES)) {
-      $theme = self::getFile($theme . '.css', self::THEMES_DIR);
+      $theme = self::getFile("$theme.css", self::THEMES_DIR);
       $common = self::getFile('common.css', self::THEMES_DIR);
-      return $theme . $common;
+      $service = self::getFile("$service.css", self::THEMES_DIR);
+      return $theme . $common . $service;
     }
     return '';
   }

@@ -14,7 +14,7 @@ text {
 .header {
 	font-size: 18px;
 	font-weight: bold;
-	fill: red;
+	fill: var(--header-color);
 }
 
 .text {

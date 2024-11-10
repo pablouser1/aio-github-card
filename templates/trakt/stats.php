@@ -1,7 +1,7 @@
 <svg id="svg" width="<?= $this->e($params->width) ?>" height="235" viewBox="0 0 <?= $this->e($params->width) ?> 235" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <title><?= $this->e($params->username) ?> stats</title>
   <style>
-    <?= $this->getThemeCSS($params->theme) ?>
+    <?= $this->getThemeCSS($params->theme, 'trakt') ?>
   </style>
   <rect class="background" width="100%" height="100%" />
   <image y="10" width="100%" height="50" href="data:image/svg+xml;base64,<?= $this->getLogo("trakt", $params->theme) ?>" />

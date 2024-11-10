@@ -1,10 +1,7 @@
 <svg id="svg" width="<?= $this->e($params->width) ?>" height="190" viewBox="0 0 <?= $this->e($params->width) ?> 190" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <title><?= $this->e($params->username) ?> watching info</title>
   <style>
-    <?= $this->getThemeCSS($params->theme) ?>
-    a:hover text {
-      fill: #f5222d;
-    }
+    <?= $this->getThemeCSS($params->theme, 'trakt') ?>
   </style>
   <rect class="background" width="100%" height="100%" />
   <g>
