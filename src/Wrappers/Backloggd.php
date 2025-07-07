@@ -28,7 +28,7 @@ class Backloggd extends Base {
   }
 
   private function _fetchPlayed(): ?array {
-    $res = $this->request("/u/{$this->username}/games/added:desc/", [], false);
+    $res = $this->request("/u/{$this->username}/games/added:desc/type:played/", [], 'has_js=true;', false);
     if (!$res->success) {
       return null;
     }

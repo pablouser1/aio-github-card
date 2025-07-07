@@ -4,14 +4,12 @@ use App\Cache\ICache;
 use App\Models\CacheData;
 
 class Base {
+  private const BROWSER_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36';
   private string $base_url = '';
   private array $params = [];
   private array $headers = [];
-
-  protected bool $spoof_ua = false;
-  private const BROWSER_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36';
-
   private ?ICache $cacheEngine = null;
+  protected bool $spoof_ua = false;
 
   function __construct(string $base_url, array $params = [], array $headers = [], ?ICache $engine = null) {
     $this->base_url = $base_url;
@@ -23,11 +21,10 @@ class Base {
     }
 
     $this->headers = $headers;
-
     $this->cacheEngine = $engine;
   }
 
-  protected function request(string $endpoint, array $params = [], bool $isJson = true): object {
+  protected function request(string $endpoint, array $params = [], string $cookies = '', bool $isJson = true): object {
     $ch = curl_init();
     $finalParams = array_merge($this->params, $params);
     $url = $this->base_url . $endpoint;
@@ -40,6 +37,12 @@ class Base {
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HEADER, false);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
+
+    // Additional cookies
+    if ($cookies !== '') {
+      curl_setopt($ch, CURLOPT_COOKIE, $cookies);
+    }
+
     $response = curl_exec($ch);
     $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
