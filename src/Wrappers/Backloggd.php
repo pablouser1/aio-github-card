@@ -45,17 +45,20 @@ class Backloggd extends Base {
 
     $els = $xp->query('.//div[@game_id and contains(@class, "card")]', $list);
     $games = [];
+    /** @var \DOMElement */
     foreach ($els as $el) {
       $imgs = $xp->query('.//img[@alt and contains(@class, "card-img")]', $el);
       $anchors = $xp->query('.//a[contains(@class, "cover-link")]', $el);
       if ($imgs->count() > 0 && $anchors->count() > 0) {
-
+        
         // Get name and image from <img>
+        /** @var \DOMElement */
         $img = $imgs->item(0);
         $name = $img->getAttribute('alt');
         $image = $img->getAttribute('src');
 
         // Get url from <a>
+        /** @var \DOMElement */
         $a = $anchors->item(0);
         $path = $a->getAttribute('href');
 
