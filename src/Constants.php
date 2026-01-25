@@ -1,9 +1,11 @@
 <?php
+
 namespace App;
 
-abstract class Constants {
-  const SERVICES = ["trakt", "backloggd"];
-  const THEMES = ["default", "dark"];
-  const DEFAULT_THEME = self::THEMES[0];
-  const DEFAULT_WIDTH = 300;
+abstract class Constants
+{
+    public const SERVICES = ["trakt", "backloggd"];
+    public const THEMES = ["default", "dark"];
+    public const DEFAULT_THEME = self::THEMES[0];
+    public const DEFAULT_WIDTH = 300;
 }

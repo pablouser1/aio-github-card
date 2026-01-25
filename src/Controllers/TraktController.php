@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Constants;
@@ -10,78 +11,82 @@ use App\Models\Params;
 use App\Wrappers\TheMovieDB;
 use App\Wrappers\Trakt;
 
-class TraktController {
-  private const WIDTH_STATS = 300;
-  private const WIDTH_WATCH = 380;
+class TraktController
+{
+    private const WIDTH_STATS = 300;
+    private const WIDTH_WATCH = 380;
 
-  private const MODES = ["stats", "watch"];
+    private const MODES = ["stats", "watch"];
 
-  public static function index() {
-    Render::page("service", [
-      "themes" => Constants::THEMES,
-      "modes" => self::MODES
-    ]);
-  }
-
-  public static function stats() {
-    $params = new Params("stats", self::WIDTH_WATCH);
-    $ok = $params->parse();
-
-    if (!$ok) {
-      Errors::show("Could not parse GET data! '{$params->getError()}' is invalid");
-      return;
+    public static function index()
+    {
+        Render::page("service", [
+        "themes" => Constants::THEMES,
+        "modes" => self::MODES
+        ]);
     }
 
-    Misc::setupHeaders();
+    public static function stats()
+    {
+        $params = new Params("stats", self::WIDTH_WATCH);
+        $ok = $params->parse();
 
-    $engine = Cache::getEngine();
-    $trakt = new Trakt($params->username, $engine);
-    $stats = $trakt->stats();
+        if (!$ok) {
+            Errors::show("Could not parse GET data! '{$params->getError()}' is invalid");
+            return;
+        }
 
-    Render::card("trakt/stats", $params, $stats);
-  }
+        Misc::setupHeaders();
 
-  public static function watch() {
-    $params = new Params("watch", self::WIDTH_WATCH);
-    $ok = $params->parse();
+        $engine = Cache::getEngine();
+        $trakt = new Trakt($params->username, $engine);
+        $stats = $trakt->stats();
 
-    if (!$ok) {
-      Errors::show("Could not parse GET data! '{$params->getError()}' is invalid");
-      return;
+        Render::card("trakt/stats", $params, $stats);
     }
 
-    Misc::setupHeaders();
+    public static function watch()
+    {
+        $params = new Params("watch", self::WIDTH_STATS);
+        $ok = $params->parse();
 
-    $engine = Cache::getEngine();
-    $trakt = new Trakt($params->username, $engine);
+        if (!$ok) {
+            Errors::show("Could not parse GET data! '{$params->getError()}' is invalid");
+            return;
+        }
 
-    $data = new \stdClass;
+        Misc::setupHeaders();
 
-    $watching = $trakt->watching();
-    if (!$watching) {
-      // If user is not watching, get latest stuff he saw
-      $watched = $trakt->watched();
-      if ($watched) {
-        $num_elements = count($watched);
-        $chosen = rand(0, $num_elements - 1);
-        $element = $watched[$chosen];
-        $data = $element;
-        $data->isWatching = false;
-      }
-    } else {
-      $data = $watching;
-      $data->isWatching = true;
+        $engine = Cache::getEngine();
+        $trakt = new Trakt($params->username, $engine);
+
+        $data = new \stdClass();
+
+        $watching = $trakt->watching();
+        if (!$watching) {
+          // If user is not watching, get latest stuff he saw
+            $watched = $trakt->watched();
+            if ($watched) {
+                $num_elements = count($watched);
+                $chosen = rand(0, $num_elements - 1);
+                $element = $watched[$chosen];
+                $data = $element;
+                $data->isWatching = false;
+            }
+        } else {
+            $data = $watching;
+            $data->isWatching = true;
+        }
+        $type = $data->type;
+        $id = $data->{$type}->ids->tmdb;
+        if ($type === 'episode') {
+            $id = $data->show->ids->tmdb;
+            $type = 'tv';
+        }
+        $moviedb = new TheMovieDB($id, $type, $engine);
+        $image = $moviedb->poster();
+        $data->poster = $image;
+
+        Render::card("trakt/watch", $params, $data);
     }
-    $type = $data->type;
-    $id = $data->{$type}->ids->tmdb;
-    if ($type === 'episode') {
-      $id = $data->show->ids->tmdb;
-      $type = 'tv';
-    }
-    $moviedb = new TheMovieDB($id, $type, $engine);
-    $image = $moviedb->poster();
-    $data->poster = $image;
-
-    Render::card("trakt/watch", $params, $data);
-  }
 }
