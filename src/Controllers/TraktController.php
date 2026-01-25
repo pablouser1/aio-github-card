@@ -28,7 +28,7 @@ class TraktController
 
     public static function stats()
     {
-        $params = new Params("stats", self::WIDTH_WATCH);
+        $params = new Params("stats", self::WIDTH_STATS);
         $ok = $params->parse();
 
         if (!$ok) {
@@ -47,7 +47,7 @@ class TraktController
 
     public static function watch()
     {
-        $params = new Params("watch", self::WIDTH_STATS);
+        $params = new Params("watch", self::WIDTH_WATCH);
         $ok = $params->parse();
 
         if (!$ok) {
