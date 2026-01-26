@@ -6,7 +6,7 @@ use App\Cache\ICache;
 use App\Helpers\Env;
 
 class Listenbrainz extends Base {
-    private const COVER_BASE_URL = 'https://coverartarchive.org/release/%s/front';
+    private const COVER_BASE_URL = 'https://coverartarchive.org/release/%s/front-%d';
     private string $username;
 
     public function __construct(string $username, ?ICache $engine = null) {
@@ -20,9 +20,9 @@ class Listenbrainz extends Base {
         $this->username = $username;
     }
 
-    public static function poster_url(string $id): string
+    public static function poster_url(string $id, int $width): string
     {
-        return sprintf(self::COVER_BASE_URL, $id);
+        return sprintf(self::COVER_BASE_URL, $id, $width);
     }
 
     public function listened(): ?array {

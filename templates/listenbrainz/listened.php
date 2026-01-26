@@ -7,7 +7,7 @@
     <rect class="background" width="100%" height="100%" />
     <g>
         <image height="100%"
-            href="data:image/jpg;base64,<?= base64_encode(file_get_contents($this->listenbrainz_poster_url($data->track_metadata->mbid_mapping->caa_release_mbid))) ?>" />
+            href="data:image/jpg;base64,<?= base64_encode(file_get_contents($this->listenbrainz_poster_url($data->track_metadata->mbid_mapping->caa_release_mbid, 500))) ?>" />
     </g>
     <image x="180" y="10" width="160" height="40"
         href="data:image/svg+xml;base64,<?= $this->getLogo("listenbrainz", $params->theme) ?>" />
