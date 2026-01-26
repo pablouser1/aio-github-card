@@ -21,8 +21,8 @@ class TraktController
     public static function index()
     {
         Render::page("service", [
-        "themes" => Constants::THEMES,
-        "modes" => self::MODES
+            "themes" => Constants::THEMES,
+            "modes" => self::MODES
         ]);
     }
 
@@ -64,7 +64,7 @@ class TraktController
 
         $watching = $trakt->watching();
         if (!$watching) {
-          // If user is not watching, get latest stuff he saw
+            // If user is not watching, get latest stuff he saw
             $watched = $trakt->watched();
             if ($watched) {
                 $num_elements = count($watched);

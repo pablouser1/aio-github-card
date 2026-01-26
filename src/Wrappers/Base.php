@@ -48,7 +48,7 @@ class Base
 
         curl_setopt($ch, CURLOPT_USERAGENT, $this->user_agent);
 
-      // Additional cookies
+        // Additional cookies
         if ($cookies !== '') {
             curl_setopt($ch, CURLOPT_COOKIE, $cookies);
         }

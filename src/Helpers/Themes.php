@@ -12,12 +12,16 @@ class Themes
     private const ALL = [
         "trakt" => [
             "default" => "trakt-black-text.svg",
-            "dark" => "trakt-white-text.svg"
+            "dark" => "trakt-white-text.svg",
         ],
         "backloggd" => [
             "default" => "backloggd-light.png",
-            "dark" => "backloggd-dark.png"
-        ]
+            "dark" => "backloggd-dark.png",
+        ],
+        "listenbrainz" => [
+            "default" => "listenbrainz.svg",
+            "dark" => "listenbrainz.svg",
+        ],
     ];
 
     private static function getFile(string $filename, string $basepath): string

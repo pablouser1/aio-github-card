@@ -28,6 +28,11 @@ class Env
         return $_ENV["TMDB_TOKEN"] ?? '';
     }
 
+    public static function listenbrainz_token(): ?string
+    {
+        return $_ENV["LISTENBRAINZ_TOKEN"] ?? null;
+    }
+
     public static function request_cache(): string
     {
         return $_ENV['REQUEST_CACHE'] ?? '';

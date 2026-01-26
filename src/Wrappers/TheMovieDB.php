@@ -19,7 +19,7 @@ class TheMovieDB extends Base
         }
 
         parent::__construct('https://api.themoviedb.org/3', [
-        'api_key' => $token
+            'api_key' => $token
         ], ['Content-Type: application/json; charset=utf-8'], $engine);
         $this->id = $id;
         $this->type = $type;

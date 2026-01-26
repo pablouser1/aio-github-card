@@ -8,13 +8,13 @@ use App\Helpers\Errors;
 use App\Helpers\Misc;
 use App\Helpers\Render;
 use App\Models\Params;
-use App\Wrappers\Backloggd;
+use App\Wrappers\Listenbrainz;
 
-class BackloggdController
+class ListenbrainzController
 {
-    private const WIDTH_WATCH = 380;
+    private const WIDTH_LISTENED = 380;
 
-    private const MODES = ["played"];
+    private const MODES = ["listened"];
 
     public static function index()
     {
@@ -24,9 +24,9 @@ class BackloggdController
         ]);
     }
 
-    public static function played()
+    public static function listened()
     {
-        $params = new Params("played", self::WIDTH_WATCH);
+        $params = new Params("listened", self::WIDTH_LISTENED);
         $ok = $params->parse();
 
         if (!$ok) {
@@ -38,17 +38,17 @@ class BackloggdController
 
         $engine = Cache::getEngine();
 
-        $bkl = new Backloggd($params->username, $engine);
+        $brainz = new Listenbrainz($params->username, $engine);
 
-        $data = $bkl->played();
+        $data = $brainz->listened();
         if ($data === null) {
-            Errors::show("Could not get data from Backloggd!");
+            Errors::show("Could not get data from Listenbrainz!");
             return;
         }
 
         $index = array_rand($data);
-        $game = $data[$index];
+        $song = $data[$index];
 
-        Render::card("backloggd/played", $params, $game);
+        Render::card("listenbrainz/listened", $params, $song);
     }
 }

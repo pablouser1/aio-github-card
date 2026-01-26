@@ -27,7 +27,7 @@ class Backloggd extends Base
             return $games;
         }
 
-      // IT JUST HAS NO GAMES
+        // IT JUST HAS NO GAMES
         return null;
     }
 
@@ -50,23 +50,23 @@ class Backloggd extends Base
 
         $els = $xp->query('.//div[@game_id and contains(@class, "card")]', $list);
         $games = [];
-      /** @var \DOMElement */
+        /** @var \DOMElement */
         foreach ($els as $el) {
             $imgs = $xp->query('.//img[@alt and contains(@class, "card-img")]', $el);
             $anchors = $xp->query('.//a[contains(@class, "cover-link")]', $el);
             if ($imgs->count() > 0 && $anchors->count() > 0) {
-              // Get name and image from <img>
-              /** @var \DOMElement */
+                // Get name and image from <img>
+                /** @var \DOMElement */
                 $img = $imgs->item(0);
                 $name = $img->getAttribute('alt');
                 $image = $img->getAttribute('src');
 
-              // Get url from <a>
-              /** @var \DOMElement */
+                // Get url from <a>
+                /** @var \DOMElement */
                 $a = $anchors->item(0);
                 $path = $a->getAttribute('href');
 
-              // Optionally get user review
+                // Optionally get user review
                 $rating = -1;
                 $ratingStr = $el->getAttribute('data-rating');
                 if ($ratingStr !== '') {
