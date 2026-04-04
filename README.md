@@ -4,6 +4,7 @@ Dynamic cards for your Github README for multiple services using PHP >= 8.0
 ## Supported services
 * Trakt (https://trakt.tv)
 * Backloggd (https://backloggd.com)
+* Listenbrainz (https://listenbrainz.org)
 
 ## Usage
 You can interactively generate your Markdown [here](https://gh-cards.pabloferreiro.es)
