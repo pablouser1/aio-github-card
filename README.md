@@ -1,4 +1,11 @@
 # All-in-one Github Card
+> [!WARNING]
+> **This repository has moved to Codeberg!**
+> Development on GitHub has been discontinued, and this repository is now read-only.
+> 
+> New repository:
+> 🔗 **[codeberg.org/pablouser1/aio-profile-cards](https://codeberg.org/pablouser1/aio-profile-cards)**
+> 
 Dynamic cards for your Github README for multiple services using PHP >= 8.0
 
 ## Supported services
